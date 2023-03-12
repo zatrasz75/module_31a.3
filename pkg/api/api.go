@@ -38,7 +38,7 @@ func (api *API) Router() *mux.Router {
 }
 
 // Получение всех публикаций.
-func (api *API) postsHandler(w http.ResponseWriter, r *http.Request) {
+func (api *API) postsHandler(w http.ResponseWriter, _ *http.Request) {
 	posts, err := api.db.Posts()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -49,7 +49,10 @@ func (api *API) postsHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	w.Write(bytes)
+	_, err = w.Write(bytes)
+	if err != nil {
+		return
+	}
 }
 
 // Добавление публикации.
