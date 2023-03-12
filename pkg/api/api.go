@@ -7,13 +7,13 @@ import (
 	"net/http"
 )
 
-// Программный интерфейс сервера GoNews
+// API Программный интерфейс сервера GoNews
 type API struct {
 	db     storage.Interface
 	router *mux.Router
 }
 
-// Конструктор объекта API
+// New Конструктор объекта API
 func New(db storage.Interface) *API {
 	api := API{
 		db: db,
@@ -31,7 +31,7 @@ func (api *API) endpoints() {
 	api.router.HandleFunc("/posts", api.deletePostHandler).Methods(http.MethodDelete, http.MethodOptions)
 }
 
-// Получение маршрутизатора запросов.
+// Router Получение маршрутизатора запросов.
 // Требуется для передачи маршрутизатора веб-серверу.
 func (api *API) Router() *mux.Router {
 	return api.router
