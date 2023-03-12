@@ -4,8 +4,13 @@ import (
 	"GoNews/pkg/api"
 	"GoNews/pkg/storage"
 	"GoNews/pkg/storage/memdb"
+	"GoNews/pkg/storage/mongo"
+	"GoNews/pkg/storage/postgres"
+	"context"
+	mongo2 "go.mongodb.org/mongo-driver/mongo"
 	"log"
 	"net/http"
+	"time"
 )
 
 // Сервер GoNews.
@@ -17,27 +22,37 @@ type server struct {
 func main() {
 	// Создаём объект сервера.
 	var srv server
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
 
 	// Создаём объекты баз данных.
 	//
 	// БД в памяти.
 	db := memdb.New()
-	/*
-		// Реляционная БД PostgreSQL.
-		db2, err := postgres.New("postgres://postgres:postgres@server.domain/posts")
+
+	// Реляционная БД PostgreSQL.
+	db2, err := postgres.New(ctx, "postgres://postgres:postgrespw@localhost:49153/posts")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db2.Db.Close()
+
+	// Документная БД MongoDB.
+	db3, err := mongo.New(ctx, "mongodb://localhost:27017/")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer func(Db *mongo2.Client, ctx context.Context) {
+		var err = Db.Disconnect(ctx)
 		if err != nil {
-			log.Fatal(err)
+			panic(err)
 		}
-		// Документная БД MongoDB.
-		db3, err := mongo.New("mongodb://server.domain:27017/")
-		if err != nil {
-			log.Fatal(err)
-		}
-		_, _ = db2, db3
-	*/
+	}(db3.Db, ctx)
+
+	_, _, _ = db, db2, db3
 
 	// Инициализируем хранилище сервера конкретной БД.
-	srv.db = db
+	srv.db = db3
 
 	// Создаём объект API и регистрируем обработчики.
 	srv.api = api.New(srv.db)
@@ -46,7 +61,7 @@ func main() {
 	// Предаём серверу маршрутизатор запросов,
 	// поэтому сервер будет все запросы отправлять на маршрутизатор.
 	// Маршрутизатор будет выбирать нужный обработчик.
-	err := http.ListenAndServe(":8080", srv.api.Router())
+	err = http.ListenAndServe(":8080", srv.api.Router())
 	if err != nil {
 		log.Fatal(err)
 	}
