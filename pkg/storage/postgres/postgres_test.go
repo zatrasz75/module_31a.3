@@ -14,11 +14,13 @@ func TestNew(t *testing.T) {
 		ctx    context.Context
 		constr string
 	}
-	var tests []struct {
+	tests := []struct {
 		name    string
 		args    args
 		want    *Storage
 		wantErr bool
+	}{
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -41,19 +43,60 @@ func TestStorage_AddPost(t *testing.T) {
 	type args struct {
 		p storage.Post
 	}
-	var tests []struct {
+	tests := []struct {
 		name    string
 		fields  fields
 		args    args
+		want    int
 		wantErr bool
+	}{
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			pg := &Storage{
 				Db: tt.fields.Db,
 			}
-			if err := pg.AddPost(tt.args.p); (err != nil) != tt.wantErr {
+			got, err := pg.AddPost(tt.args.p)
+			if (err != nil) != tt.wantErr {
 				t.Errorf("AddPost() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("AddPost() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestStorage_AddPostuser(t *testing.T) {
+	type fields struct {
+		Db *pgxpool.Pool
+	}
+	type args struct {
+		p storage.Authors
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		want    int
+		wantErr bool
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			pg := &Storage{
+				Db: tt.fields.Db,
+			}
+			got, err := pg.AddPostuser(tt.args.p)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("AddPostuser() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("AddPostuser() got = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -66,11 +109,13 @@ func TestStorage_DeletePost(t *testing.T) {
 	type args struct {
 		p storage.Post
 	}
-	var tests []struct {
+	tests := []struct {
 		name    string
 		fields  fields
 		args    args
 		wantErr bool
+	}{
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -84,26 +129,28 @@ func TestStorage_DeletePost(t *testing.T) {
 	}
 }
 
-func TestStorage_UpdatePost(t *testing.T) {
+func TestStorage_DeletePostuser(t *testing.T) {
 	type fields struct {
 		Db *pgxpool.Pool
 	}
 	type args struct {
-		p storage.Post
+		p storage.Authors
 	}
-	var tests []struct {
+	tests := []struct {
 		name    string
 		fields  fields
 		args    args
 		wantErr bool
+	}{
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			pg := &Storage{
 				Db: tt.fields.Db,
 			}
-			if err := pg.UpdatePost(tt.args.p); (err != nil) != tt.wantErr {
-				t.Errorf("UpdatePost() error = %v, wantErr %v", err, tt.wantErr)
+			if err := pg.DeletePostuser(tt.args.p); (err != nil) != tt.wantErr {
+				t.Errorf("DeletePostuser() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
@@ -113,11 +160,13 @@ func TestStorage_Posts(t *testing.T) {
 	type fields struct {
 		Db *pgxpool.Pool
 	}
-	var tests []struct {
+	tests := []struct {
 		name    string
 		fields  fields
 		want    []Interface.Post
 		wantErr bool
+	}{
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -131,6 +180,89 @@ func TestStorage_Posts(t *testing.T) {
 			}
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Posts() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestStorage_Postsuser(t *testing.T) {
+	type fields struct {
+		Db *pgxpool.Pool
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		want    []Interface.Authors
+		wantErr bool
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			pg := &Storage{
+				Db: tt.fields.Db,
+			}
+			got, err := pg.Postsuser()
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Postsuser() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Postsuser() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestStorage_UpdatePost(t *testing.T) {
+	type fields struct {
+		Db *pgxpool.Pool
+	}
+	type args struct {
+		p storage.Post
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		wantErr bool
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			pg := &Storage{
+				Db: tt.fields.Db,
+			}
+			if err := pg.UpdatePost(tt.args.p); (err != nil) != tt.wantErr {
+				t.Errorf("UpdatePost() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+func TestStorage_UpdatePostuser(t *testing.T) {
+	type fields struct {
+		Db *pgxpool.Pool
+	}
+	type args struct {
+		p storage.Authors
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		wantErr bool
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			pg := &Storage{
+				Db: tt.fields.Db,
+			}
+			if err := pg.UpdatePostuser(tt.args.p); (err != nil) != tt.wantErr {
+				t.Errorf("UpdatePostuser() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}

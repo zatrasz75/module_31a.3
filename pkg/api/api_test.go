@@ -13,10 +13,12 @@ func TestAPI_Router(t *testing.T) {
 		db     storage.Interface
 		router *mux.Router
 	}
-	var tests []struct {
+	tests := []struct {
 		name   string
 		fields fields
 		want   *mux.Router
+	}{
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -40,10 +42,12 @@ func TestAPI_addPostHandler(t *testing.T) {
 		w http.ResponseWriter
 		r *http.Request
 	}
-	var tests []struct {
+	tests := []struct {
 		name   string
 		fields fields
 		args   args
+	}{
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -52,6 +56,33 @@ func TestAPI_addPostHandler(t *testing.T) {
 				router: tt.fields.router,
 			}
 			api.addPostHandler(tt.args.w, tt.args.r)
+		})
+	}
+}
+
+func TestAPI_addPostHandlerUser(t *testing.T) {
+	type fields struct {
+		db     storage.Interface
+		router *mux.Router
+	}
+	type args struct {
+		w http.ResponseWriter
+		r *http.Request
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		args   args
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			api := &API{
+				db:     tt.fields.db,
+				router: tt.fields.router,
+			}
+			api.addPostHandlerUser(tt.args.w, tt.args.r)
 		})
 	}
 }
@@ -65,10 +96,12 @@ func TestAPI_deletePostHandler(t *testing.T) {
 		w http.ResponseWriter
 		r *http.Request
 	}
-	var tests []struct {
+	tests := []struct {
 		name   string
 		fields fields
 		args   args
+	}{
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -81,14 +114,43 @@ func TestAPI_deletePostHandler(t *testing.T) {
 	}
 }
 
+func TestAPI_deletePostHandlerUser(t *testing.T) {
+	type fields struct {
+		db     storage.Interface
+		router *mux.Router
+	}
+	type args struct {
+		w http.ResponseWriter
+		r *http.Request
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		args   args
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			api := &API{
+				db:     tt.fields.db,
+				router: tt.fields.router,
+			}
+			api.deletePostHandlerUser(tt.args.w, tt.args.r)
+		})
+	}
+}
+
 func TestAPI_endpoints(t *testing.T) {
 	type fields struct {
 		db     storage.Interface
 		router *mux.Router
 	}
-	var tests []struct {
+	tests := []struct {
 		name   string
 		fields fields
+	}{
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -110,10 +172,12 @@ func TestAPI_postsHandler(t *testing.T) {
 		w   http.ResponseWriter
 		in1 *http.Request
 	}
-	var tests []struct {
+	tests := []struct {
 		name   string
 		fields fields
 		args   args
+	}{
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -122,6 +186,33 @@ func TestAPI_postsHandler(t *testing.T) {
 				router: tt.fields.router,
 			}
 			api.postsHandler(tt.args.w, tt.args.in1)
+		})
+	}
+}
+
+func TestAPI_postsHandlerUser(t *testing.T) {
+	type fields struct {
+		db     storage.Interface
+		router *mux.Router
+	}
+	type args struct {
+		w   http.ResponseWriter
+		in1 *http.Request
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		args   args
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			api := &API{
+				db:     tt.fields.db,
+				router: tt.fields.router,
+			}
+			api.postsHandlerUser(tt.args.w, tt.args.in1)
 		})
 	}
 }
@@ -135,10 +226,12 @@ func TestAPI_updatePostHandler(t *testing.T) {
 		w http.ResponseWriter
 		r *http.Request
 	}
-	var tests []struct {
+	tests := []struct {
 		name   string
 		fields fields
 		args   args
+	}{
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -151,14 +244,43 @@ func TestAPI_updatePostHandler(t *testing.T) {
 	}
 }
 
+func TestAPI_updatePostHandlerUser(t *testing.T) {
+	type fields struct {
+		db     storage.Interface
+		router *mux.Router
+	}
+	type args struct {
+		w http.ResponseWriter
+		r *http.Request
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		args   args
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			api := &API{
+				db:     tt.fields.db,
+				router: tt.fields.router,
+			}
+			api.updatePostHandlerUser(tt.args.w, tt.args.r)
+		})
+	}
+}
+
 func TestNew(t *testing.T) {
 	type args struct {
 		db storage.Interface
 	}
-	var tests []struct {
+	tests := []struct {
 		name string
 		args args
 		want *API
+	}{
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

@@ -1,6 +1,8 @@
 package memdb
 
-import "GoNews/pkg/storage"
+import (
+	Interface "GoNews/pkg/storage"
+)
 
 // Store Хранилище данных.
 type Store struct{}
@@ -10,21 +12,44 @@ func New() *Store {
 	return new(Store)
 }
 
-func (s *Store) Posts() ([]storage.Post, error) {
+func (s *Store) Posts() ([]Interface.Post, error) {
 	return posts, nil
 }
 
-func (s *Store) AddPost(storage.Post) error {
+func (s *Store) AddPost(post Interface.Post) (int, error) {
+	return 0, nil
+}
+func (s *Store) UpdatePost(post Interface.Post) error {
 	return nil
 }
-func (s *Store) UpdatePost(storage.Post) error {
-	return nil
-}
-func (s *Store) DeletePost(storage.Post) error {
+func (s *Store) DeletePost(post Interface.Post) error {
 	return nil
 }
 
-var posts = []storage.Post{
+func (s *Store) Postsuser() ([]Interface.Authors, error) {
+	return nil, nil
+}
+
+func (s *Store) AddPostuser(Interface.Authors) (int, error) {
+	return 0, nil
+}
+
+func (s *Store) UpdatePostuser(Interface.Authors) error {
+	return nil
+}
+
+func (s *Store) DeletePostuser(Interface.Authors) error {
+	return nil
+}
+
+var name = []Interface.Authors{
+	{
+		Id:   1,
+		Name: "Михаил Владимирович",
+	},
+}
+
+var posts = []Interface.Post{
 	{
 		ID:      1,
 		Title:   "Эффективный переход",

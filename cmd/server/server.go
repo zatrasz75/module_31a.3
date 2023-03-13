@@ -30,7 +30,7 @@ func main() {
 	// БД в памяти.
 	db := memdb.New()
 
-	// Реляционная БД PostgreSQL.
+	// Реляционная БД PostgresSQL.
 	db2, err := postgres.New(ctx, "postgres://postgres:postgrespw@localhost:49153/posts")
 	if err != nil {
 		log.Fatal(err)
